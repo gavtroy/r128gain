@@ -362,20 +362,20 @@ class TestR128Gain(unittest.TestCase):
 
                 if delete_tags:
                     mf = mutagen.File(self.m4a_filepath)
-                    self.assertNotIn("----:com.apple.iTunes:replaygain_track_gain", mf)
-                    self.assertNotIn("----:com.apple.iTunes:replaygain_track_peak", mf)
+                    self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN", mf)
+                    self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK", mf)
                 r128gain.tag(self.m4a_filepath, loudness, peak)
                 mf = mutagen.File(self.m4a_filepath)
                 self.assertIsInstance(mf.tags, mutagen.mp4.MP4Tags)
-                self.assertIn("----:com.apple.iTunes:replaygain_track_gain", mf)
-                self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_gain"]), 1)
+                self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN", mf)
+                self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"]), 1)
                 self.assertEqual(
-                    bytes(mf["----:com.apple.iTunes:replaygain_track_gain"][0]).decode(),
+                    bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"][0]).decode(),
                     f"{expected_track_gain_rg2:.2f} dB",
                 )
-                self.assertIn("----:com.apple.iTunes:replaygain_track_peak", mf)
-                self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_peak"]), 1)
-                self.assertEqual(bytes(mf["----:com.apple.iTunes:replaygain_track_peak"][0]).decode(), f"{peak:.6f}")
+                self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK", mf)
+                self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"]), 1)
+                self.assertEqual(bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"][0]).decode(), f"{peak:.6f}")
 
                 if delete_tags:
                     mf = mutagen.File(self.aac_filepath)
@@ -529,34 +529,34 @@ class TestR128Gain(unittest.TestCase):
 
                     mf = mutagen.File(self.m4a_filepath)
                     self.assertIsInstance(mf.tags, mutagen.mp4.MP4Tags)
-                    self.assertIn("----:com.apple.iTunes:replaygain_track_gain", mf)
-                    self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_gain"]), 1)
+                    self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN", mf)
+                    self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"]), 1)
                     self.assertEqual(
-                        bytes(mf["----:com.apple.iTunes:replaygain_track_gain"][0]).decode(),
+                        bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"][0]).decode(),
                         f"{ref_loudness_rg2 - self.ref_levels[self.m4a_filepath][0]:.2f} dB",
                     )
-                    self.assertIn("----:com.apple.iTunes:replaygain_track_peak", mf)
-                    self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_peak"]), 1)
+                    self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK", mf)
+                    self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"]), 1)
                     self.assertEqual(
-                        bytes(mf["----:com.apple.iTunes:replaygain_track_peak"][0]).decode(),
+                        bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"][0]).decode(),
                         f"{self.ref_levels[self.m4a_filepath][1]:.6f}",
                     )
                     if album_gain:
-                        self.assertIn("----:com.apple.iTunes:replaygain_album_gain", mf)
-                        self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_album_gain"]), 1)
+                        self.assertIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN", mf)
+                        self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"]), 1)
                         self.assertEqual(
-                            bytes(mf["----:com.apple.iTunes:replaygain_album_gain"][0]).decode(),
+                            bytes(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"][0]).decode(),
                             f"{ref_loudness_rg2 - self.ref_levels[r128gain.ALBUM_GAIN_KEY][0]:.2f} dB",
                         )
-                        self.assertIn("----:com.apple.iTunes:replaygain_album_peak", mf)
-                        self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_album_peak"]), 1)
+                        self.assertIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK", mf)
+                        self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK"]), 1)
                         self.assertEqual(
-                            bytes(mf["----:com.apple.iTunes:replaygain_album_peak"][0]).decode(),
+                            bytes(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK"][0]).decode(),
                             f"{self.ref_levels[self.max_peak_filepath][1]:.6f}",
                         )
                     elif i == 0:
-                        self.assertNotIn("----:com.apple.iTunes:replaygain_album_gain", mf)
-                        self.assertNotIn("----:com.apple.iTunes:replaygain_album_peak", mf)
+                        self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN", mf)
+                        self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK", mf)
 
                     mf = mutagen.File(self.aac_filepath)
                     self.assertIsInstance(mf.tags, mutagen.apev2.APEv2)
@@ -761,35 +761,35 @@ class TestR128Gain(unittest.TestCase):
 
                     mf = mutagen.File(self.m4a_filepath)
                     self.assertIsInstance(mf.tags, mutagen.mp4.MP4Tags)
-                    self.assertIn("----:com.apple.iTunes:replaygain_track_gain", mf)
-                    self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_gain"]), 1)
+                    self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN", mf)
+                    self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"]), 1)
                     self.assertEqual(
-                        bytes(mf["----:com.apple.iTunes:replaygain_track_gain"][0]).decode(),
+                        bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"][0]).decode(),
                         f"{ref_loudness_rg2 - self.ref_levels[self.m4a_filepath][0]:.2f} dB",
                     )
-                    self.assertIn("----:com.apple.iTunes:replaygain_track_peak", mf)
-                    self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_peak"]), 1)
+                    self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK", mf)
+                    self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"]), 1)
                     self.assertEqual(
-                        bytes(mf["----:com.apple.iTunes:replaygain_track_peak"][0]).decode(),
+                        bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"][0]).decode(),
                         f"{self.ref_levels[self.m4a_filepath][1]:.6f}",
                     )
                     if album_gain:
-                        self.assertIn("----:com.apple.iTunes:replaygain_album_gain", mf)
-                        self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_album_gain"]), 1)
-                        self.assertValidGainStr(bytes(mf["----:com.apple.iTunes:replaygain_album_gain"][0]).decode(), 2)
+                        self.assertIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN", mf)
+                        self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"]), 1)
+                        self.assertValidGainStr(bytes(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"][0]).decode(), 2)
                         self.assertGainStrAlmostEqual(
-                            bytes(mf["----:com.apple.iTunes:replaygain_album_gain"][0]).decode(),
+                            bytes(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"][0]).decode(),
                             ref_loudness_rg2 - self.ref_levels[r128gain.ALBUM_GAIN_KEY][0],
                         )
-                        self.assertIn("----:com.apple.iTunes:replaygain_album_peak", mf)
-                        self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_album_peak"]), 1)
+                        self.assertIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK", mf)
+                        self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK"]), 1)
                         self.assertEqual(
-                            bytes(mf["----:com.apple.iTunes:replaygain_album_peak"][0]).decode(),
+                            bytes(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK"][0]).decode(),
                             f"{self.ref_levels[self.max_peak_filepath][1]:.6f}",
                         )
                     elif i == 0:
-                        self.assertNotIn("----:com.apple.iTunes:replaygain_album_gain", mf)
-                        self.assertNotIn("----:com.apple.iTunes:replaygain_album_peak", mf)
+                        self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN", mf)
+                        self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK", mf)
 
                     mf = mutagen.File(self.aac_filepath)
                     self.assertIsInstance(mf.tags, mutagen.apev2.APEv2)
@@ -928,34 +928,34 @@ class TestR128Gain(unittest.TestCase):
 
                     mf = mutagen.File(album2_m4a_filepath)
                     self.assertIsInstance(mf.tags, mutagen.mp4.MP4Tags)
-                    self.assertIn("----:com.apple.iTunes:replaygain_track_gain", mf)
-                    self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_gain"]), 1)
+                    self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN", mf)
+                    self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"]), 1)
                     self.assertEqual(
-                        bytes(mf["----:com.apple.iTunes:replaygain_track_gain"][0]).decode(),
+                        bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"][0]).decode(),
                         f"{ref_loudness_rg2 - self.ref_levels[self.m4a_filepath][0]:.2f} dB",
                     )
-                    self.assertIn("----:com.apple.iTunes:replaygain_track_peak", mf)
-                    self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_track_peak"]), 1)
+                    self.assertIn("----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK", mf)
+                    self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"]), 1)
                     self.assertEqual(
-                        bytes(mf["----:com.apple.iTunes:replaygain_track_peak"][0]).decode(),
+                        bytes(mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"][0]).decode(),
                         f"{self.ref_levels[self.m4a_filepath][1]:.6f}",
                     )
                     if album_gain:
-                        self.assertIn("----:com.apple.iTunes:replaygain_album_gain", mf)
-                        self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_album_gain"]), 1)
+                        self.assertIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN", mf)
+                        self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"]), 1)
                         self.assertEqual(
-                            bytes(mf["----:com.apple.iTunes:replaygain_album_gain"][0]).decode(),
+                            bytes(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"][0]).decode(),
                             f"{ref_loudness_rg2 - ref_levels_dir2[0]:.2f} dB",
                         )
-                        self.assertIn("----:com.apple.iTunes:replaygain_album_peak", mf)
-                        self.assertEqual(len(mf["----:com.apple.iTunes:replaygain_album_peak"]), 1)
+                        self.assertIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK", mf)
+                        self.assertEqual(len(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK"]), 1)
                         self.assertEqual(
-                            bytes(mf["----:com.apple.iTunes:replaygain_album_peak"][0]).decode(),
+                            bytes(mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK"][0]).decode(),
                             f"{ref_levels_dir2[1]:.6f}",
                         )
                     elif i == 0:
-                        self.assertNotIn("----:com.apple.iTunes:replaygain_album_gain", mf)
-                        self.assertNotIn("----:com.apple.iTunes:replaygain_album_peak", mf)
+                        self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN", mf)
+                        self.assertNotIn("----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK", mf)
 
     def test_oggopus_output_gain(self):
         """Test opusgain.parse_oggopus_output_gain."""

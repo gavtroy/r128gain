@@ -481,16 +481,16 @@ def tag(  # noqa: C901
         # https://github.com/xbmc/xbmc/blob/9e855967380ef3a5d25718ff2e6db5e3dd2e2829/xbmc/music/tags/TagLoaderTagLib.cpp#L806-L812
         if loudness is not None:
             assert peak is not None
-            mf["----:com.apple.iTunes:replaygain_track_gain"] = mutagen.mp4.MP4FreeForm(
+            mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN"] = mutagen.mp4.MP4FreeForm(
                 f"{RG2_REF_R128_LOUDNESS_DBFS - loudness:.2f} dB".encode()
             )
-            mf["----:com.apple.iTunes:replaygain_track_peak"] = mutagen.mp4.MP4FreeForm(f"{peak:.6f}".encode())
+            mf["----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK"] = mutagen.mp4.MP4FreeForm(f"{peak:.6f}".encode())
         if album_loudness is not None:
             assert album_peak is not None
-            mf["----:com.apple.iTunes:replaygain_album_gain"] = mutagen.mp4.MP4FreeForm(
+            mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN"] = mutagen.mp4.MP4FreeForm(
                 f"{RG2_REF_R128_LOUDNESS_DBFS - album_loudness:.2f} dB".encode()
             )
-            mf["----:com.apple.iTunes:replaygain_album_peak"] = mutagen.mp4.MP4FreeForm(f"{album_peak:.6f}".encode())
+            mf["----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK"] = mutagen.mp4.MP4FreeForm(f"{album_peak:.6f}".encode())
 
     else:
         raise RuntimeError(f"Unhandled {mf.__class__.__qualname__!r} tag format for file {filepath!r}")
@@ -534,11 +534,11 @@ def has_loudness_tag(filepath: str) -> Optional[Tuple[bool, bool]]:
         album = ("REPLAYGAIN_ALBUM_GAIN" in mf) and ("REPLAYGAIN_ALBUM_PEAK" in mf)
 
     elif isinstance(mf.tags, mutagen.mp4.MP4Tags):
-        track = ("----:com.apple.iTunes:replaygain_track_gain" in mf) and (
-            "----:com.apple.iTunes:replaygain_track_peak" in mf
+        track = ("----:com.apple.iTunes:REPLAYGAIN_TRACK_GAIN" in mf) and (
+            "----:com.apple.iTunes:REPLAYGAIN_TRACK_PEAK" in mf
         )
-        album = ("----:com.apple.iTunes:replaygain_album_gain" in mf) and (
-            "----:com.apple.iTunes:replaygain_album_peak" in mf
+        album = ("----:com.apple.iTunes:REPLAYGAIN_ALBUM_GAIN" in mf) and (
+            "----:com.apple.iTunes:REPLAYGAIN_ALBUM_PEAK" in mf
         )
 
     else:
