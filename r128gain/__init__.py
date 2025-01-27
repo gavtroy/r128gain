@@ -168,7 +168,11 @@ def get_r128_loudness(  # noqa: C901
     output_streams = []
     ffmpeg_r128_streams = []
     for ffmpeg_input in ffmpeg_inputs:
-        ffmpeg_input = ffmpeg_input.filter("aformat", sample_fmts="s16", sample_rates="48000", channel_layouts="stereo")
+        # broken on many files, probably ffmpeg bug
+        # > Assertion best_input >= 0 failed at fftools/ffmpeg_filter.c:2113
+        # Skipping the 48k resample will typically lead to PEAK being calculated a bit lower
+        #ffmpeg_input = ffmpeg_input.filter("aformat", sample_fmts="s16", sample_rates="48000", channel_layouts="stereo")
+        ffmpeg_input = ffmpeg_input.filter("aformat", sample_fmts="s16", channel_layouts="stereo")
         if calc_peak:
             split_streams = ffmpeg_input.filter_multi_output("asplit", outputs=2)
             ffmpeg_rg_stream, ffmpeg_r128_stream = split_streams[0], split_streams[1]
