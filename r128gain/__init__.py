@@ -126,7 +126,7 @@ def run_ffmpeg(cmd: List[str]) -> bytes:
         tmp_script_filepath = os.path.join(tmp_dir, "ffmpeg_filters")
         with open(tmp_script_filepath, "wt") as f:
             f.write(filter_script)
-        cmd[filter_opt_index] = "-filter_complex_script"
+        cmd[filter_opt_index] = "-/filter_complex"
         cmd[filter_opt_index + 1] = tmp_script_filepath
 
         # run
